@@ -13,6 +13,17 @@ router.post("/",async (req,res,next) =>{
     } catch (error) {
         next(error)
     }
-})  
+})
+
+router.put("/:id", async (req,res) =>{
+    const { id } = req.params
+    const { order } = req.body
+
+    await knex('orders')
+    .where({ id })
+    .update({ order })
+
+    return res.status(201).send(`Order ${id} changed sucessfully!`)
+})
 
 module.exports = router
