@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Manager</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js'></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Pedidos</h1>
+    <div class="container">
+        <form id="chat">
+            <input type="number" name='tableNumber' placeholder="Número da mesa" id='tableNumber'>
+            <div class="orders" id='orders'></div>
+            <input type="text" name='order' placeholder="Pedidos" id='orderInput'>
+            <button type="submit" id='button' onclick="validate()">Enviar</button>
+        </form>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var div = document.getElementById('orders')
+    var socket = io('http://localhost:8000')
+    var input = document.getElementById('chat')
+    document.getElementById('button').addEventListener('click',function(event){
+            event.preventDefault()
+    })
+    // Render Order
+    function renderOrders(order){
+        var newDiv = document.createElement('div')
+        div.appendChild(newDiv)
+        newDiv.innerHTML = "Mesa: " + order.tableNumber +" Pedido: "+ order.order 
+    }
+    // Manda Pedido
+    function sendOrders(data){
+        const config = {
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json'
+            },
+        body: JSON.stringify(data)
+        }
+        fetch('http://localhost:8000/send', config)
+        .then(function(res){ console.log(res)})
+    }
+    // Validate
+    function validate(){
+        let tableNumber = document.getElementById('tableNumber').value
+        const order = document.getElementById('orderInput').value
+        tableNumber = parseInt(tableNumber)
+        
+        if(tableNumber && order){
+            sendOrders({tableNumber: tableNumber,order: order})
+        }else{
+            window.alert('Coloque o pedido e o número da mesa.')
+        }
+    }
+
+    socket.on('receivedOrder' ,function(order){
+        order.map(order => renderOrders(order))
+    })
+</script>
+
+</html>
