@@ -30,10 +30,11 @@
     function renderOrders(order){
         var newDiv = document.createElement('div')
         div.appendChild(newDiv)
-        newDiv.innerHTML = "Mesa: " + order.tableNumber +" Pedido: "+ order.order 
+        newDiv.innerHTML = "Mesa: " + order.tableNumber +" Pedido: "+ order.order   
     }
     // Manda Pedido
     function sendOrders(data){
+        let emitData = data
         const config = {
         method: 'POST',
         headers: {
@@ -42,7 +43,10 @@
         body: JSON.stringify(data)
         }
         fetch('http://localhost:8000/send', config)
-        .then(function(res){ console.log(res)})
+        .then(function(){
+             socket.emit('sendOrder', emitData)
+             renderOrders(emitData)
+        })
     }
     // Validate
     function validate(){
@@ -56,10 +60,14 @@
             window.alert('Coloque o pedido e o número da mesa.')
         }
     }
-
-    socket.on('receivedOrder' ,function(order){
+    // Sockets
+    socket.on('initialOrders' ,function(order){
         order.map(order => renderOrders(order))
     })
+    socket.on('newOrder', function(data){
+        renderOrders(data)
+    })
+
 </script>
 
 </html>
