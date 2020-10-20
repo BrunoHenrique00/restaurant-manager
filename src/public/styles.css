@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+    font-family: 'Roboto Mono', monospace;
   }
   
   * {
@@ -9,31 +10,65 @@ html, body {
   }
   
   #chat {
-    height: 100%;
+    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
     flex-direction: column;
+    background-color: #9b2915;
+    color: white;
+  }
+
+  h1 {
+    text-align: center;
+    font-family: 'Sansita Swashed', cursive;
+    font-size: xx-large;
+    background-color: lightgrey;
+    width: fit-content;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: #e9b44c;
+    padding: 20px 0px;
+  }
+
+  footer {
+    text-align: center;
+    background-color: #505a5b;
+    color: white;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
   }
   
   input {
     width: 600px;
-    border: 1px solid #ddd;
+    border: 1px solid black;
     height: 50px;
     padding: 0 20px;
     font-size: 14px;
+    border-color: lightgrey;
   }
   
   button {
     width: 600px;
     height: 50px;
     font-size: 14px;
-    background: #069;
+    background-color: #3185fc;
     text-align: center;
-    line-height: 50px;
     font-weight: bold;
     color: #FFF;
     margin-top: 10px;
+    border-radius: 10px;
   }
   
   .orders {
