@@ -14,4 +14,4 @@ E o que deixa tudo mais único!
 
 Apenas digite o pedido que a cozinha precisa fazer e o número da mesa, então, em tempo real o pedido aparecera na tela da cozinha. VOUALA!!!
 
-![](/images/example-restaurant-manager.PNG)
+![](/images/example-restaurant-manager.png)
